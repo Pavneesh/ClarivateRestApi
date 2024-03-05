@@ -1,0 +1,99 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1 style="text-align: center;">Random User Data</h1>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+
+    function GetData() {
+        var username = "Test";
+        var password = "1234";
+        var data = {
+            username: username,
+            password: password
+        };
+        jQuery.support.cors = true;
+        $.ajax({
+            type: "Post",
+            url: "https://localhost:44371/api/RandomUser",
+            contentType: "application/json; charset=utf-8",
+            headers: {
+
+                "accept": "application/json",
+
+                "Access-Control-Allow-Origin": "*"
+            },
+            dataType: "json",
+            data: JSON.stringify(data),
+            success: function (data) {
+                $('#Name').text(data.results[0].name.title + " " + data.results[0].name.first + " " + data.results[0].name.last);
+                $('#Email').text(data.results[0].email);
+                $('#PhoneNo').text(data.results[0].phone);
+                $('#Dob').text(data.results[0].dob.date);
+                $('#picture').attr("src", data.results[0].picture.medium);
+                $('#loginUserName').text(data.results[0].login.username);
+                $('#LoginPassword').text(data.results[0].login.password);
+            },
+        });
+    }
+</script>
+<style>
+    .col-md-6{
+        border-right: 1px solid; border-bottom: 1px solid;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <input type="button" id="btnGetData" onclick="GetData();" value="Click To Fetch Data" />
+    </div>
+    <div id="divShowData">
+        <div class="row" style="border: 1px solid;">
+
+            <div class="col-md-6" >
+                <label>Name</label>
+            </div>
+            <div class="col-md-6" >
+                <label id="Name"></label>
+            </div>
+            <div class="col-md-6" >
+                <label>Email</label>
+            </div>
+            <div class="col-md-6" >
+                <label id="Email"></label>
+            </div>
+            <div class="col-md-6" >
+                <label>Phone No.</label>
+            </div>
+            <div class="col-md-6" >
+                <label id="PhoneNo"></label>
+            </div>
+            <div class="col-md-6" >
+                <label>Date Of Birth</label>
+            </div>
+            <div class="col-md-6" >
+                <label id="Dob"></label>
+            </div>
+            <div class="col-md-6" >
+                <label>Photo</label>
+            </div>
+            <div class="col-md-6" >
+                <img id="picture" />
+            </div>
+            <div class="col-md-6">
+                <label>User Name</label>
+            </div>
+            <div class="col-md-6" >
+                <label id="loginUserName"></label>
+            </div>
+            <div class="col-md-6" >
+                <label>Password</label>
+            </div>
+            <div class="col-md-6" >
+                <label id="LoginPassword"></label>
+            </div>
+        </div>
+    </div>
+</div>
